@@ -6,5 +6,5 @@
 
 This CV is created using the **`R`** Package [`vitae`](https://github.com/mitchelloharawild/vitae)
 
-This project partially used resources and code provided by [Bryan Jenks](https://github.com/tallguyjenks/CV)
+This project partially used resources and code provided by [Bryan Jenks](https://github.com/tallguyjenks/CV), thank you!!
 
