@@ -1,4 +1,4 @@
-[![](./img/cvPreview.png)](https://github.com/tallguyjenks/CV/blob/master/CV.pdf)
+[![](CV-master/img/profile.jpg)](https://github.com/tallguyjenks/CV/blob/master/CV.pdf)
 
 # My Data Driven CV
 
