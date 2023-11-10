@@ -2,14 +2,14 @@
 name: Anderson A.C.
 surname: Alves
 position: "Assistant Professor (Precision Livestock Science)"
-address: "Department of Animal and Dairy Science, University of Gergia, 425 River Rd, Athens, GA, USA, 30602"
+address: "Department of Animal and Dairy Science, University of Georgia, 425 River Rd, Athens, GA, USA, 30602"
 profilepic: "./img/profile.jpg"
 www: "alvesand.netlify.app"
 email: "alvesand@uga.edu"
 github: alvesand
 orcid: 0000-0001-8306-0487 
 date: "`r format(Sys.time(), '%B %Y')`"
-headcolor: CD5C5C
+headcolor: #CD5C5C
 aboutme: "I work on the development and application of efficient statistical learning methods and computational tools for the analysis of large livestock data. My research agenda center on combining on-farm sensor data and artificial intelligence (AI) techniques to create decision-making tools, supporting efficient and sustainable livestock farming"
 docname: CV
 output: vitae::awesomecv
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(vitae)
 library(dplyr)
 library(magrittr)
-source("C:\\Users\\alves\\OneDrive\\Documents\\CV-master\\utils.R")
+source("C:\\Users\\alves\\OneDrive\\Documents\\Anderson\\CV_Alves\\CV-master\\CV-master\\utils.R")
 
 CV <- create_CV_object(
   data_location = "https://docs.google.com/spreadsheets/d/1Ef8qhBWs3hKk17O4mnHVio4fXTJeSmqzWW8W8UT79dU/edit?usp=sharing",  
@@ -61,7 +61,7 @@ CV$entries_data %>%
 
 ## **Peer-reviewed Papers**
 ```{r, results='asis'}
-source("C:\\Users\\alves\\OneDrive\\Documents\\CV-master\\count_authors.R")
+source("C:\\Users\\alves\\OneDrive\\Documents\\Anderson\\CV_Alves\\CV-master\\CV-master\\count_authors.R")
 authors_count <- count_authors("papers.bib")
 cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], ",", "Total:", sum(authors_count), "\n")
 ```
@@ -85,7 +85,7 @@ bibliography_entries("ongoing.bib") #%>%
 
 ## **Book Chapter**
 ```{r, results='asis'}
-source("C:\\Users\\alves\\OneDrive\\Documents\\CV-master\\count_authors.R")
+source("C:\\Users\\alves\\OneDrive\\Documents\\Anderson\\CV_Alves\\CV-master\\CV-master\\count_authors.R")
 authors_count <- count_authors("book.bib")
 cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], ",", "Total:", sum(authors_count), "\n")
 ```
@@ -99,7 +99,7 @@ bibliography_entries("book.bib") #%>%
 
 ## **Papers published in proceedings**
 ```{r, results='asis'}
-source("C:\\Users\\alves\\OneDrive\\Documents\\CV-master\\count_authors.R")
+source("C:\\Users\\alves\\OneDrive\\Documents\\Anderson\\CV_Alves\\CV-master\\CV-master\\count_authors.R")
 authors_count <- count_authors("paper_proc.bib")
 cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], ",", "Total:", sum(authors_count), "\n")
 ```
@@ -114,7 +114,7 @@ bibliography_entries("paper_proc.bib") #%>%
 
 ## **Conference Abstracts**
 ```{r, results='asis'}
-source("C:\\Users\\alves\\OneDrive\\Documents\\CV-master\\count_authors.R")
+source("C:\\Users\\alves\\OneDrive\\Documents\\Anderson\\CV_Alves\\CV-master\\CV-master\\count_authors.R")
 authors_count <- count_authors("abst.bib")
 cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], ",", "Total:", sum(authors_count), "\n")
 ```
@@ -139,7 +139,7 @@ CV$entries_data %>%
   )
 ```
 
-# INVITED PRESENTATIONS
+# Invited Presentations
 
 ```{r}
 CV$entries_data %>% 
@@ -153,6 +153,6 @@ CV$entries_data %>%
   )
 ```
 
-# CONFERENCE PRESENTATIONS
+# Conference Presentations
 
 
