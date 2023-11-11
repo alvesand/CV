@@ -10,7 +10,7 @@ github: alvesand
 orcid: 0000-0001-8306-0487
 headcolor: 414141
 date: "`r format(Sys.time(), '%B %Y')`"
-aboutme: "I work on the development and application of efficient statistical learning methods and computational tools for the analysis of large livestock data. My research agenda center on combining on-farm sensor data and artificial intelligence (AI) techniques to create decision-making tools, supporting efficient and sustainable livestock farming"
+aboutme: "I work on the development and application of efficient statistical learning methods and computational tools for the analysis of large livestock data. My research program centers on combining on-farm sensor data and artificial intelligence (AI) techniques for animal monitoring. The general goal is to create decision-making tools that will support efficient management decisions. Additionally, we employ high-throughput phenotyping alongside modern molecular technologies to investigate the genetic basis of novel and hard-to-measure traits. Our lab mission is to harness top-notch technologies to improve animal production, reproduction, welfare and health, ultimately supporting efficient and sustainable livestock farming."
 docname: CV
 output: 
   vitae::awesomecv
@@ -25,10 +25,11 @@ library(magrittr)
 library(readr)
 library(tidyverse)
 library(kableExtra)
+library(ggplot2)
+library(scholar)
 
 dire = getwd()
 source("utils.R")
-source("count_authors.R")
 
 CV <- create_CV_object(
   data_location = "https://docs.google.com/spreadsheets/d/1Ef8qhBWs3hKk17O4mnHVio4fXTJeSmqzWW8W8UT79dU/edit?usp=sharing",  
@@ -65,6 +66,14 @@ CV$entries_data %>%
   )
 ```
 
+# Research Interests
+
+* Developing and applying computational and statistical tools for precision livestock farming and animal breeding.
+
+* Integrating machine learning and sensor data for optimized livestock management.
+
+* Leveraging modern molecular and sensor technologies to enhance farming efficiency and sustainability.
+
 
 # PUBLICATIONS
 
@@ -74,34 +83,55 @@ authors_count <- count_authors("data/papers.bib")
 cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3],"\n")
 ```
 
-
 \faicon{book} `r bibliography_entries("data/book.bib") %>% summarize(N = n()) %>% pull(N)` **Book Chapters: **
 ```{r, results='asis'}
-source("count_authors.R")
 authors_count <- count_authors("data/book.bib")
 cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], "\n")
 ```
 
 \faicon{file-text} `r bibliography_entries("data/paper_proc.bib") %>% summarize(N = n()) %>% pull(N)` **Conference Papers: **
 ```{r, results='asis'}
-source("count_authors.R")
 authors_count <- count_authors("data/paper_proc.bib")
 cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], "\n")
 ```
 
 \faicon{users} `r bibliography_entries("data/abst.bib") %>% summarize(N = n()) %>% pull(N)` **Conference Abstracts: **
 ```{r, results='asis'}
-source("count_authors.R")
 authors_count <- count_authors("data/abst.bib")
 cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], "\n", "\n")
 ```
 
-##
-Full List Available on [Google Scholar](https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=_JLXWlkAAAAJ&pagesize=80&sortby=pubdate)
-##
+ 
+Full List Available at: https://alvesand.netlify.app/publications
+
+
+```{r, results='asis', fig.width=5, fig.height=3, fig.align='center'}
+id = "_JLXWlkAAAAJ&hl"
+author <- scholar::get_profile(id)
+cat("\n")
+
+cat("Google Scholar statistics (", format(Sys.time(), '%B %Y'), "): ", " ")
+cat("Citations: ", author$total_cites, ", h-index: ", author$h_index, " ,", "i10-index: ", author$i10_index,".",  "\n")
+citations = get_citation_history(id)
+citations = subset(citations, year>=2016)
+cat("\n")
+# Create a bar plot
+ggplot(citations, aes(x = year, y = cites)) +
+  geom_bar(stat = "identity", fill = "darkgrey") +
+  labs(title = "",
+       x = "Year",
+       y = "Citations") +
+  scale_x_continuous(breaks = unique(citations$year), expand = c(0, 0))
+```
+
+\begin{center}
+\textbf{Figure 1.} Citation history since 2016. 
+\end{center}
+
+
 
 ## **Peer-reviewed Papers**
-```{r results='asis'}
+```{r results='asis', fig.width=6, fig.height=4, fig.align='center'}
 bibliography_entries("data/papers.bib") #%>%
   #arrange(desc(author$family), issued)
 ```
@@ -138,7 +168,22 @@ bibliography_entries("data/ongoing.bib") #%>%
 ```
 ##
 
-##
+# Grants
+
+**Table 1.** Summary of grants awarded 
+```{r, echo=FALSE, results='asis'}
+data = read.csv(file = "data/grants.csv", sep = ",", h = T)
+generate_latex_table(data, centered = F, pad = 0)
+```
+
+# Mentoring 
+
+**Table 2.** Summary of mentoring activities 
+```{r, echo=FALSE, results='asis'}
+data = read.csv(file = "data/mentoring.csv", sep = ",", h = T)
+generate_latex_table(data, centered = F, pad = 1)
+```
+
 
 # TEACHING
 ```{r}
@@ -152,31 +197,6 @@ CV$entries_data %>%
     why = description_bullets
   )
 ```
-
-# Mentoring 
-
-```{r, echo=FALSE, results='asis'}
-# Create a data frame with the specified items
-data <- data.frame(
-  Category = c("Undergraduate Research Projects (Advisor)", "Undergraduate Students (Committee member)", "Graduate Students (Co-advisor)", "Graduate Students Qualifying Exam (Committee member)"),
-  Total = c("2", "3", "2", "2"),
-  stringsAsFactors = FALSE
-)
-
-# Set the column widths
-cw1 <- "12cm"  # Adjust the width as needed
-cw2 <- "2cm"  # Adjust the width as needed
-
-# Print the matrix with adjusted column widths and bold column names
-cat("\\begin{tabular}{|p{", cw1, "} | p{", cw2, "} |}\n")
-cat("\\hline\n")
-cat("\\textbf{Category} & \\textbf{Total} \\\\\n")  # Bold column names
-cat("\\hline\n")
-cat(paste(data$Category, " & ", data$Total, " \\\\\n", sep = ""))
-cat("\\hline\n")
-cat("\\end{tabular}\n")
-```
-
 
 
 
@@ -193,22 +213,56 @@ CV$entries_data %>%
   )
 ```
 
+# Software 
+
+## R packages
+
+* **qmtsvr**: (Quasi) Multi-task Support Vector Regression methods for genome-wide prediction of complex traits. **Documentation:** https://alvesand.netlify.app/qmtsvr_doc; **Source Code:** https://github.com/alvesand/qmtsvr  
+
+## Python and R scripts
+
+* **PyGA:** Runs a simple genetic algorithm for tuning hyperparameters in the sklearn library. **Source Code:** https://github.com/alvesand/pyga 
+
+* **SISGlabs:** A suite of R scripts to illustrate some concepts in Quantitative Genetics and Mixed Model Theory. **Source Code:** https://github.com/alvesand/SISG_Labs_Modules_9_and_12 
 
 # Service 
-* Home automation 
-* Beekeeping 
-* Permaculture 
-* Electronics design 
-* Woodworking 
 
-# Technical Skills 
+* **Ad-hoc Reviewer** - Journal of Animal Breeding and Genetics, BMC Genomics, Journal of Animal Science, Agriculture, Scientific Reports, Small Ruminant Research, Tropical Animal, Health and Production.
 
-<!-- \smallskip -->
+# Society Memberships 
 
+* American Society of Animal Science (ASAS)
 
+# Skills 
 
+\begin{center}
+\textbf{Table 3.} Highlighted technical skills. 
+\end{center}
 
+<!-- \noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}} -->
 
-# Conference Presentations
+<!-- \par\noindent\nobreak\vspace{-30pt}\rule{\textwidth}{1pt} -->
 
+```{r techtable, results='markup'}
+tribble(
+   ~`Programming Languages`, ~`Analysis Tools`, ~`Expertise`,
+  "R, Python, C++ (Beginner)",
+  "Keras, Tensorflow,pytorch, scikit-learn, BLUPF90 suite programs, QMSim, Cytoscape, String, Genome Data Viewer,GS3",
+  "Machine Learning, Big Data Analytics, Quantitative Genetics, Genomics, Computer Vision, Statistical Modelling, Simulation"
+) %>%
+  kable(booktabs = T, align = 'c', escape = F, format = "latex") %>%
+  kable_styling(full_width = F, font_size = 9,latex_options = "hold_position") %>% 
+  row_spec(0, bold = T, color = "#414141") %>% 
+  row_spec(1, bold = F, color = "#7f7f7f") %>% 
+  column_spec(column = 1:3, width = '4.75cm')
+```
 
+# Miscellaneous 
+
+* **Languages:** English and Portuguese 
+* **Place of birth:** Duque de Caxias, RJ, Brazil
+* **DOB:** 01/14/1991
+
+# References
+
+References and additional information available upon request.
