@@ -7,20 +7,28 @@ profilepic: "./img/profile.jpg"
 www: "alvesand.netlify.app"
 email: "alvesand@uga.edu"
 github: alvesand
-orcid: 0000-0001-8306-0487 
+orcid: 0000-0001-8306-0487
+headcolor: 414141
 date: "`r format(Sys.time(), '%B %Y')`"
-headcolor: #CD5C5C
 aboutme: "I work on the development and application of efficient statistical learning methods and computational tools for the analysis of large livestock data. My research agenda center on combining on-farm sensor data and artificial intelligence (AI) techniques to create decision-making tools, supporting efficient and sustainable livestock farming"
 docname: CV
-output: vitae::awesomecv
+output: 
+  vitae::awesomecv
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(vitae)
 library(dplyr)
+library(here)
 library(magrittr)
-source("C:\\Users\\alves\\OneDrive\\Documents\\Anderson\\CV_Alves\\CV-master\\CV-master\\utils.R")
+library(readr)
+library(tidyverse)
+library(kableExtra)
+
+dire = getwd()
+source("utils.R")
+source("count_authors.R")
 
 CV <- create_CV_object(
   data_location = "https://docs.google.com/spreadsheets/d/1Ef8qhBWs3hKk17O4mnHVio4fXTJeSmqzWW8W8UT79dU/edit?usp=sharing",  
@@ -57,76 +65,82 @@ CV$entries_data %>%
   )
 ```
 
+
 # PUBLICATIONS
 
-## **Peer-reviewed Papers**
-```{r, results='asis'}
-source("C:\\Users\\alves\\OneDrive\\Documents\\Anderson\\CV_Alves\\CV-master\\CV-master\\count_authors.R")
-authors_count <- count_authors("papers.bib")
-cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], ",", "Total:", sum(authors_count), "\n")
+\faicon{bar-chart-o} `r bibliography_entries("data/papers.bib") %>% filter(type == "article-journal") %>% summarize(N = n()) %>% pull(N)` **Refeered Journal Publications:**
+```{r, results='asis'} 
+authors_count <- count_authors("data/papers.bib")
+cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3],"\n")
 ```
 
 
+\faicon{book} `r bibliography_entries("data/book.bib") %>% summarize(N = n()) %>% pull(N)` **Book Chapters: **
+```{r, results='asis'}
+source("count_authors.R")
+authors_count <- count_authors("data/book.bib")
+cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], "\n")
+```
+
+\faicon{file-text} `r bibliography_entries("data/paper_proc.bib") %>% summarize(N = n()) %>% pull(N)` **Conference Papers: **
+```{r, results='asis'}
+source("count_authors.R")
+authors_count <- count_authors("data/paper_proc.bib")
+cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], "\n")
+```
+
+\faicon{users} `r bibliography_entries("data/abst.bib") %>% summarize(N = n()) %>% pull(N)` **Conference Abstracts: **
+```{r, results='asis'}
+source("count_authors.R")
+authors_count <- count_authors("data/abst.bib")
+cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], "\n", "\n")
+```
+
+##
+Full List Available on [Google Scholar](https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=_JLXWlkAAAAJ&pagesize=80&sortby=pubdate)
+##
+
+## **Peer-reviewed Papers**
+```{r results='asis'}
+bibliography_entries("data/papers.bib") #%>%
+  #arrange(desc(author$family), issued)
+```
+## 
+
+## **Book Chapter**
 ```{r}
 library(dplyr)
-bibliography_entries("papers.bib") #%>%
+bibliography_entries("data/book.bib") #%>%
   #arrange(desc(author$family), issued)
+```
+##
+
+## **Papers published in proceedings**
+```{r}
+library(dplyr)
+bibliography_entries("data/paper_proc.bib") #%>%
+  #arrange(desc(author$family), issued)
+```
+##
+
+## **Conference Abstracts (*Last 3 years*)**
+```{r}
+library(dplyr)
+bibliography_entries("data/recent_abs.bib")
 ```
 ## 
 
 ## **Forthcoming publications**
 ```{r}
 library(dplyr)
-bibliography_entries("ongoing.bib") #%>%
+bibliography_entries("data/ongoing.bib") #%>%
   #arrange(desc(author$family), issued)
 ```
 ##
 
-
-## **Book Chapter**
-```{r, results='asis'}
-source("C:\\Users\\alves\\OneDrive\\Documents\\Anderson\\CV_Alves\\CV-master\\CV-master\\count_authors.R")
-authors_count <- count_authors("book.bib")
-cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], ",", "Total:", sum(authors_count), "\n")
-```
-
-```{r}
-library(dplyr)
-bibliography_entries("book.bib") #%>%
-  #arrange(desc(author$family), issued)
-```
 ##
-
-## **Papers published in proceedings**
-```{r, results='asis'}
-source("C:\\Users\\alves\\OneDrive\\Documents\\Anderson\\CV_Alves\\CV-master\\CV-master\\count_authors.R")
-authors_count <- count_authors("paper_proc.bib")
-cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], ",", "Total:", sum(authors_count), "\n")
-```
-
-```{r}
-
-library(dplyr)
-bibliography_entries("paper_proc.bib") #%>%
-  #arrange(desc(author$family), issued)
-```
-##
-
-## **Conference Abstracts**
-```{r, results='asis'}
-source("C:\\Users\\alves\\OneDrive\\Documents\\Anderson\\CV_Alves\\CV-master\\CV-master\\count_authors.R")
-authors_count <- count_authors("abst.bib")
-cat("First author:", authors_count[1], ",", "Co-author:", authors_count[2], ",", "Corresponding author:", authors_count[3], ",", "Total:", sum(authors_count), "\n")
-```
-
-```{r}
-library(dplyr)
-bibliography_entries("abst.bib") #%>%
-  #arrange(desc(author$family), issued)
-```
 
 # TEACHING
-
 ```{r}
 CV$entries_data %>% 
   filter(section == 'teaching') %>% 
@@ -139,8 +153,34 @@ CV$entries_data %>%
   )
 ```
 
-# Invited Presentations
+# Mentoring 
 
+```{r, echo=FALSE, results='asis'}
+# Create a data frame with the specified items
+data <- data.frame(
+  Category = c("Undergraduate Research Projects (Advisor)", "Undergraduate Students (Committee member)", "Graduate Students (Co-advisor)", "Graduate Students Qualifying Exam (Committee member)"),
+  Total = c("2", "3", "2", "2"),
+  stringsAsFactors = FALSE
+)
+
+# Set the column widths
+cw1 <- "12cm"  # Adjust the width as needed
+cw2 <- "2cm"  # Adjust the width as needed
+
+# Print the matrix with adjusted column widths and bold column names
+cat("\\begin{tabular}{|p{", cw1, "} | p{", cw2, "} |}\n")
+cat("\\hline\n")
+cat("\\textbf{Category} & \\textbf{Total} \\\\\n")  # Bold column names
+cat("\\hline\n")
+cat(paste(data$Category, " & ", data$Total, " \\\\\n", sep = ""))
+cat("\\hline\n")
+cat("\\end{tabular}\n")
+```
+
+
+
+
+# Invited Presentations
 ```{r}
 CV$entries_data %>% 
   filter(section == 'talk') %>% 
@@ -152,6 +192,22 @@ CV$entries_data %>%
     why = description_bullets
   )
 ```
+
+
+# Service 
+* Home automation 
+* Beekeeping 
+* Permaculture 
+* Electronics design 
+* Woodworking 
+
+# Technical Skills 
+
+<!-- \smallskip -->
+
+
+
+
 
 # Conference Presentations
 
