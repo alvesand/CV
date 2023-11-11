@@ -1,4 +1,4 @@
-[![](CV-master/img/preview.JPG)](https://github.com/alvesand/CV/blob/main/CV-master/CV.pdf)
+[![](CV-master/img/preview2.JPG)](https://github.com/alvesand/CV/blob/main/CV-master/CV.pdf)
 
 # My Data Driven CV
 
